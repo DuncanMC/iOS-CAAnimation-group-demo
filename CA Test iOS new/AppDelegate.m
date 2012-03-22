@@ -3,7 +3,7 @@
 //  CA Test iOS new
 //
 //  Created by Duncan Champney on 3/21/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 WareTo. All rights reserved.
 //
 
 #import "AppDelegate.h"

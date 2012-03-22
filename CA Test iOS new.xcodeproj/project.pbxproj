@@ -15,6 +15,9 @@
 		AE449D0B151A82CE00A71A4C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE449D0A151A82CE00A71A4C /* AppDelegate.m */; };
 		AE449D0E151A82CF00A71A4C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE449D0D151A82CF00A71A4C /* ViewController.m */; };
 		AE449D11151A82CF00A71A4C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE449D0F151A82CF00A71A4C /* ViewController.xib */; };
+		AE449D18151A830500A71A4C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE449D17151A830500A71A4C /* QuartzCore.framework */; };
+		AE449D1F151A842500A71A4C /* WareTo_logo_100x77.png in Resources */ = {isa = PBXBuildFile; fileRef = AE449D1E151A842500A71A4C /* WareTo_logo_100x77.png */; };
+		AE449D22151A862800A71A4C /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE449D21151A862800A71A4C /* TestView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,15 +25,19 @@
 		AE449CFA151A82CE00A71A4C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AE449CFC151A82CE00A71A4C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AE449CFE151A82CE00A71A4C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		AE449D02151A82CE00A71A4C /* CA Test iOS new-Info.plist */ = {isa = PBXFileReference; path = "CA Test iOS new-Info.plist"; sourceTree = "<group>"; };
+		AE449D02151A82CE00A71A4C /* CA Test iOS new-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CA Test iOS new-Info.plist"; sourceTree = "<group>"; };
 		AE449D04151A82CE00A71A4C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE449D06151A82CE00A71A4C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		AE449D08151A82CE00A71A4C /* CA Test iOS new-Prefix.pch */ = {isa = PBXFileReference; path = "CA Test iOS new-Prefix.pch"; sourceTree = "<group>"; };
-		AE449D09151A82CE00A71A4C /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		AE449D08151A82CE00A71A4C /* CA Test iOS new-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CA Test iOS new-Prefix.pch"; sourceTree = "<group>"; };
+		AE449D09151A82CE00A71A4C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AE449D0A151A82CE00A71A4C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AE449D0C151A82CE00A71A4C /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		AE449D0C151A82CE00A71A4C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		AE449D0D151A82CF00A71A4C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		AE449D10151A82CF00A71A4C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		AE449D17151A830500A71A4C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AE449D1E151A842500A71A4C /* WareTo_logo_100x77.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WareTo_logo_100x77.png; sourceTree = "<group>"; };
+		AE449D20151A862800A71A4C /* TestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
+		AE449D21151A862800A71A4C /* TestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE449D18151A830500A71A4C /* QuartzCore.framework in Frameworks */,
 				AE449CFB151A82CE00A71A4C /* UIKit.framework in Frameworks */,
 				AE449CFD151A82CE00A71A4C /* Foundation.framework in Frameworks */,
 				AE449CFF151A82CE00A71A4C /* CoreGraphics.framework in Frameworks */,
@@ -67,6 +75,7 @@
 		AE449CF9151A82CE00A71A4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE449D17151A830500A71A4C /* QuartzCore.framework */,
 				AE449CFA151A82CE00A71A4C /* UIKit.framework */,
 				AE449CFC151A82CE00A71A4C /* Foundation.framework */,
 				AE449CFE151A82CE00A71A4C /* CoreGraphics.framework */,
@@ -82,6 +91,8 @@
 				AE449D0C151A82CE00A71A4C /* ViewController.h */,
 				AE449D0D151A82CF00A71A4C /* ViewController.m */,
 				AE449D0F151A82CF00A71A4C /* ViewController.xib */,
+				AE449D20151A862800A71A4C /* TestView.h */,
+				AE449D21151A862800A71A4C /* TestView.m */,
 				AE449D01151A82CE00A71A4C /* Supporting Files */,
 			);
 			path = "CA Test iOS new";
@@ -90,6 +101,7 @@
 		AE449D01151A82CE00A71A4C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE449D1E151A842500A71A4C /* WareTo_logo_100x77.png */,
 				AE449D02151A82CE00A71A4C /* CA Test iOS new-Info.plist */,
 				AE449D03151A82CE00A71A4C /* InfoPlist.strings */,
 				AE449D06151A82CE00A71A4C /* main.m */,
@@ -150,6 +162,7 @@
 			files = (
 				AE449D05151A82CE00A71A4C /* InfoPlist.strings in Resources */,
 				AE449D11151A82CF00A71A4C /* ViewController.xib in Resources */,
+				AE449D1F151A842500A71A4C /* WareTo_logo_100x77.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +176,7 @@
 				AE449D07151A82CE00A71A4C /* main.m in Sources */,
 				AE449D0B151A82CE00A71A4C /* AppDelegate.m in Sources */,
 				AE449D0E151A82CF00A71A4C /* ViewController.m in Sources */,
+				AE449D22151A862800A71A4C /* TestView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +290,7 @@
 				AE449D16151A82CF00A71A4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
