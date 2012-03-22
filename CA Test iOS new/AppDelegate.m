@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 WareTo. All rights reserved.
 //
 
+//This is a test change
+
 #import "AppDelegate.h"
 
 #import "ViewController.h"
