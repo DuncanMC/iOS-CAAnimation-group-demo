@@ -12,6 +12,7 @@
 
 @interface ViewController ()
 
+- (void) resumeLayer: (CALayer *) theLayer;
 
 
 @end
@@ -292,7 +293,7 @@
 
 //-----------------------------------------------------------------------------------------------------------
 
-- (void) resumeLayer: (CALayer *) theLayer
+- (void) resumeLayer: (CALayer *) theLayer;
 {
   CFTimeInterval pausedTime = [theLayer timeOffset];
   theLayer.speed = 1.0;
@@ -343,6 +344,9 @@
 - (IBAction)stopAnimation:(id)sender 
 {
   [imageOne.layer removeAllAnimations];
+  //Also kill all the pending label changes that we set up using performSelector:withObject:afterDelay
+  [NSObject cancelPreviousPerformRequestsWithTarget: animationStepLabel];
+
 }
 
 //-----------------------------------------------------------------------------------------------------------
