@@ -187,8 +187,9 @@
   CAShapeLayer *shapeLayer = (CAShapeLayer *)[myContainerView layer];
   shapeLayer.path = figure8Path;
   shapeLayer.lineWidth = 1.0;
-  shapeLayer.strokeColor = [[UIColor blackColor] CGColor];
+  shapeLayer.strokeColor = [[UIColor grayColor] CGColor];
   shapeLayer.fillColor = [[UIColor clearColor] CGColor];
+  shapeLayer.lineDashPattern = [NSArray arrayWithObjects: [NSNumber numberWithInt: 5], [NSNumber numberWithInt: 9], nil];
   
   //Release our figure 8 path now that we are done with it.
   CFRelease(figure8Path);
