@@ -29,7 +29,7 @@ typedef void (^animationCompletionBlock)(void);
 
 @property (nonatomic, weak) IBOutlet UIView *myContainerView;
 @property (nonatomic) BOOL animationInFlight;
-@property (nonatomic) NSMutableArray *messagesArray;
+@property (nonatomic, strong) NSMutableArray *messagesArray;
 
 - (IBAction)doAnimation:(id)sender;
 - (IBAction)testViewTapped:(id)sender;

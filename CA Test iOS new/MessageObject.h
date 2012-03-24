@@ -18,7 +18,7 @@
  }
  
 @property (nonatomic) CFTimeInterval startTime;
-@property (nonatomic) NSString *message;
+@property (nonatomic, strong) NSString *message;
 
 
 + (MessageObject *) message: (NSString *) message 
