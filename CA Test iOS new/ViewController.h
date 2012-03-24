@@ -14,6 +14,7 @@ typedef void (^animationCompletionBlock)(void);
 @interface ViewController : UIViewController
 {
   BOOL animationInFlight;
+//  NSMutableArray *messagesArray;
   
   //outlets
   __weak IBOutlet UIView *myContainerView;
@@ -23,10 +24,12 @@ typedef void (^animationCompletionBlock)(void);
   __weak IBOutlet UIButton *stopAnimationButton;
   __weak IBOutlet UILabel *tapInstructionsLabel;
   __weak IBOutlet UIView *animationStepView;
+  CFTimeInterval animationStartTime;
 }
 
 @property (nonatomic, weak) IBOutlet UIView *myContainerView;
 @property (nonatomic) BOOL animationInFlight;
+@property (nonatomic) NSMutableArray *messagesArray;
 
 - (IBAction)doAnimation:(id)sender;
 - (IBAction)testViewTapped:(id)sender;

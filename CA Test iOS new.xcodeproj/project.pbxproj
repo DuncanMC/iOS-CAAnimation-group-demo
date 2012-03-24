@@ -18,6 +18,10 @@
 		AE449D18151A830500A71A4C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE449D17151A830500A71A4C /* QuartzCore.framework */; };
 		AE449D1F151A842500A71A4C /* WareTo_logo_100x77.png in Resources */ = {isa = PBXBuildFile; fileRef = AE449D1E151A842500A71A4C /* WareTo_logo_100x77.png */; };
 		AE449D22151A862800A71A4C /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE449D21151A862800A71A4C /* TestView.m */; };
+		AE70848E151B9EC800D707F8 /* wareto.png in Resources */ = {isa = PBXBuildFile; fileRef = AE70848B151B9EC800D707F8 /* wareto.png */; };
+		AE70848F151B9EC800D707F8 /* wareto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE70848C151B9EC800D707F8 /* wareto@2x.png */; };
+		AE9474D4151E460900B15B26 /* wareto-72.png in Resources */ = {isa = PBXBuildFile; fileRef = AE9474D3151E460900B15B26 /* wareto-72.png */; };
+		AE9474DF151E4BDD00B15B26 /* MessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9474DE151E4BDD00B15B26 /* MessageObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,11 @@
 		AE449D1E151A842500A71A4C /* WareTo_logo_100x77.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WareTo_logo_100x77.png; sourceTree = "<group>"; };
 		AE449D20151A862800A71A4C /* TestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		AE449D21151A862800A71A4C /* TestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
+		AE70848B151B9EC800D707F8 /* wareto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wareto.png; sourceTree = "<group>"; };
+		AE70848C151B9EC800D707F8 /* wareto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wareto@2x.png"; sourceTree = "<group>"; };
+		AE9474D3151E460900B15B26 /* wareto-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wareto-72.png"; sourceTree = "<group>"; };
+		AE9474DD151E4BDD00B15B26 /* MessageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageObject.h; sourceTree = "<group>"; };
+		AE9474DE151E4BDD00B15B26 /* MessageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +102,8 @@
 				AE449D0F151A82CF00A71A4C /* ViewController.xib */,
 				AE449D20151A862800A71A4C /* TestView.h */,
 				AE449D21151A862800A71A4C /* TestView.m */,
+				AE9474DD151E4BDD00B15B26 /* MessageObject.h */,
+				AE9474DE151E4BDD00B15B26 /* MessageObject.m */,
 				AE449D01151A82CE00A71A4C /* Supporting Files */,
 			);
 			path = "CA Test iOS new";
@@ -101,6 +112,9 @@
 		AE449D01151A82CE00A71A4C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE9474D3151E460900B15B26 /* wareto-72.png */,
+				AE70848B151B9EC800D707F8 /* wareto.png */,
+				AE70848C151B9EC800D707F8 /* wareto@2x.png */,
 				AE449D1E151A842500A71A4C /* WareTo_logo_100x77.png */,
 				AE449D02151A82CE00A71A4C /* CA Test iOS new-Info.plist */,
 				AE449D03151A82CE00A71A4C /* InfoPlist.strings */,
@@ -163,6 +177,9 @@
 				AE449D05151A82CE00A71A4C /* InfoPlist.strings in Resources */,
 				AE449D11151A82CF00A71A4C /* ViewController.xib in Resources */,
 				AE449D1F151A842500A71A4C /* WareTo_logo_100x77.png in Resources */,
+				AE70848E151B9EC800D707F8 /* wareto.png in Resources */,
+				AE70848F151B9EC800D707F8 /* wareto@2x.png in Resources */,
+				AE9474D4151E460900B15B26 /* wareto-72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +194,7 @@
 				AE449D0B151A82CE00A71A4C /* AppDelegate.m in Sources */,
 				AE449D0E151A82CF00A71A4C /* ViewController.m in Sources */,
 				AE449D22151A862800A71A4C /* TestView.m in Sources */,
+				AE9474DF151E4BDD00B15B26 /* MessageObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

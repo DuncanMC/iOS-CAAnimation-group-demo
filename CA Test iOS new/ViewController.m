@@ -6,8 +6,9 @@
 //  Copyright (c) 2012 WareTo. All rights reserved.
 //
 
-#import "ViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ViewController.h"
+#import "MessageObject.h"
 
 
 @interface ViewController ()
@@ -22,9 +23,11 @@
 
 @synthesize animationInFlight;
 @synthesize myContainerView;
+@synthesize messagesArray;
 
 - (void)viewDidLoad
 {
+  self.messagesArray = [NSMutableArray arrayWithCapacity: 10];
   [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -37,9 +40,29 @@
 //	return (interfaceOrientation == UIInterfaceOrientationPortrait) || (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
 }
 
+//-----------------------------------------------------------------------------------------------------------
+/*
+ This method sets up delayed calls to setText to display the animation steps at the appropriate times.
+ The method is also used if we resume the animation after pausing it, so we need an offset 
+ into the total animation time. Offset 0 is the beginning of the whole animation sequence.
+ */
+
+- (void) queueMessagesAtTime: (CFTimeInterval) time;
+{
+  MessageObject *message;
+  
+  for (message in messagesArray)
+  {
+    if (message.startTime >= time)
+    {
+      [animationStepLabel performSelector: @selector(setText:) withObject: message.message afterDelay: message.startTime - time];
+    }
+  }
+}
 
 - (void)viewDidUnload
 {
+  self.messagesArray = nil;
   imageOne = nil;
   //containerView = nil;
   animateButton = nil;
@@ -59,7 +82,7 @@
 
 - (IBAction)doAnimation:(id)sender 
 {
-  
+  [messagesArray removeAllObjects];
   CGFloat animationSpeed = .25;  //run the animation at 1/4 speed so you can see it and tap on the image
   animationStepView.hidden = FALSE;
   tapInstructionsLabel.hidden = FALSE;
@@ -79,7 +102,7 @@
   //-----------------------------------------------------------------------
   //Create an opacity animation to show the image view
   //-----------------------------------------------------------------------
-  [animationStepLabel performSelector: @selector(setText:) withObject: @"Show" afterDelay: start/animationSpeed];
+  [messagesArray addObject: [MessageObject message: @"Show" startTime: start/animationSpeed]];
   CABasicAnimation* show =  [CABasicAnimation animationWithKeyPath: @"opacity"];
   show.removedOnCompletion = FALSE;
   show.fillMode = kCAFillModeForwards;
@@ -92,7 +115,8 @@
   //-----------------------------------------------------------------------
   //Create a move animation to move the image view to a different spot
   //-----------------------------------------------------------------------
-  [animationStepLabel performSelector: @selector(setText:) withObject: @"Move" afterDelay: start/animationSpeed];
+  [messagesArray addObject: [MessageObject message: @"Move" startTime: start/animationSpeed]];
+
 
   oldOrigin = imageOne.layer.position;
   CGPoint newOrigin = CGPointMake(oldOrigin.x + 330, oldOrigin.y - 100);
@@ -110,7 +134,8 @@
   //-----------------------------------------------------------------------
   //Create a figure 8 animation (Using CAKeyframeAnimation)
   //-----------------------------------------------------------------------
-  [animationStepLabel performSelector: @selector(setText:) withObject: @"Figure 8" afterDelay: start/animationSpeed];
+  [messagesArray addObject: [MessageObject message: @"Figure 8" startTime: start/animationSpeed]];
+
   CAKeyframeAnimation* figure8 = nil;
   figure8=  [CAKeyframeAnimation animationWithKeyPath: @"position"];
   figure8.removedOnCompletion = FALSE;
@@ -174,7 +199,8 @@
   //This shows how to use a repeating animation of less than 180 degrees, set to "cumulative" to do
   //full circle rotations.
   //-----------------------------------------------------------------------
-  [animationStepLabel performSelector: @selector(setText:) withObject: @"Rotate" afterDelay: start/animationSpeed];
+  [messagesArray addObject: [MessageObject message: @"Rotate" startTime: start/animationSpeed]];
+
   CABasicAnimation* rotate =  [CABasicAnimation animationWithKeyPath: @"transform.rotation.z"];
   rotate.removedOnCompletion = FALSE;
   rotate.fillMode = kCAFillModeForwards;
@@ -195,7 +221,7 @@
   //-----------------------------------------------------------------------
   //Create an animation to move the image back down to it's starting y position.
   //-----------------------------------------------------------------------
-  [animationStepLabel performSelector: @selector(setText:) withObject: @"Move Down" afterDelay: start/animationSpeed];
+  [messagesArray addObject: [MessageObject message: @"Move Down" startTime: start/animationSpeed]];
   newOrigin = CGPointMake(newOrigin.x, newOrigin.y + 100);
   CABasicAnimation* moveDown =  [CABasicAnimation animationWithKeyPath: @"position"];
   moveDown.removedOnCompletion = FALSE;
@@ -210,7 +236,7 @@
   //-----------------------------------------------------------------------
   //Create an animation to rotate the image back to 0 degrees.
   //-----------------------------------------------------------------------
-  [animationStepLabel performSelector: @selector(setText:) withObject: @"Rotate Back" afterDelay: start/animationSpeed];
+  [messagesArray addObject: [MessageObject message: @"Rotate Back" startTime: start/animationSpeed]];
 
   CABasicAnimation* rotateBack =  [CABasicAnimation animationWithKeyPath: @"transform.rotation.z"];
   rotateBack.removedOnCompletion = FALSE;
@@ -225,7 +251,7 @@
   //Create an animation to hide the image.
   //-----------------------------------------------------------------------
   start +=.2;
-  [animationStepLabel performSelector: @selector(setText:) withObject: @"Hide" afterDelay: start/animationSpeed];
+  [messagesArray addObject: [MessageObject message: @"Hide" startTime: start/animationSpeed]];
 
   CABasicAnimation* hide =  [CABasicAnimation animationWithKeyPath: @"opacity"];
   hide.removedOnCompletion = FALSE;
@@ -280,13 +306,18 @@
   
   //Install the animation group into the image view's layer.
   [imageOne.layer addAnimation: group forKey:  nil];
+  animationStartTime = [myContainerView.layer convertTime: CACurrentMediaTime() fromLayer: nil];
+  
+  //Queue messages for each animation step, starting at the beginning of the animation.
+  [self queueMessagesAtTime: 0];
 }
 
 //-----------------------------------------------------------------------------------------------------------
 
 - (void) pauseLayer: (CALayer *) theLayer
 {
-  CFTimeInterval pausedTime = [theLayer convertTime:CACurrentMediaTime() fromLayer: nil];
+  CFTimeInterval mediaTime = CACurrentMediaTime();
+  CFTimeInterval pausedTime = [theLayer convertTime: mediaTime fromLayer: nil];
   theLayer.speed = 0.0;
   theLayer.timeOffset = pausedTime;
 }
@@ -299,8 +330,11 @@
   theLayer.speed = 1.0;
   theLayer.timeOffset = 0.0;
   theLayer.beginTime = 0.0;
-  CFTimeInterval timeSincePause = [theLayer convertTime:CACurrentMediaTime() fromLayer: nil] - pausedTime;
+  CFTimeInterval mediaTime = CACurrentMediaTime();
+  CFTimeInterval timeSincePause = [theLayer convertTime: mediaTime fromLayer: nil] - pausedTime;
   theLayer.beginTime = timeSincePause;
+  [self queueMessagesAtTime: mediaTime - animationStartTime - timeSincePause];
+  animationStepView.hidden = FALSE;
 }
 
 //-----------------------------------------------------------------------------------------------------------
@@ -330,10 +364,7 @@
       else
       {
         [self pauseLayer: myContainerView.layer];
-        
-        //If we pause the animation, the step labels aren't valid any more, so just hide the label
-        animationStepView.hidden = TRUE;
-        
+                
         //Also kill all the pending label changes that we set up using performSelector:withObject:afterDelay
         [NSObject cancelPreviousPerformRequestsWithTarget: animationStepLabel];
       }
