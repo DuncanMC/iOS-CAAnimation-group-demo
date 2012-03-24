@@ -21,6 +21,7 @@
 		AE70848E151B9EC800D707F8 /* wareto.png in Resources */ = {isa = PBXBuildFile; fileRef = AE70848B151B9EC800D707F8 /* wareto.png */; };
 		AE70848F151B9EC800D707F8 /* wareto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE70848C151B9EC800D707F8 /* wareto@2x.png */; };
 		AE9474D4151E460900B15B26 /* wareto-72.png in Resources */ = {isa = PBXBuildFile; fileRef = AE9474D3151E460900B15B26 /* wareto-72.png */; };
+		AE9474DF151E4BDD00B15B26 /* MessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9474DE151E4BDD00B15B26 /* MessageObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,8 @@
 		AE70848B151B9EC800D707F8 /* wareto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wareto.png; sourceTree = "<group>"; };
 		AE70848C151B9EC800D707F8 /* wareto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wareto@2x.png"; sourceTree = "<group>"; };
 		AE9474D3151E460900B15B26 /* wareto-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wareto-72.png"; sourceTree = "<group>"; };
+		AE9474DD151E4BDD00B15B26 /* MessageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageObject.h; sourceTree = "<group>"; };
+		AE9474DE151E4BDD00B15B26 /* MessageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +102,8 @@
 				AE449D0F151A82CF00A71A4C /* ViewController.xib */,
 				AE449D20151A862800A71A4C /* TestView.h */,
 				AE449D21151A862800A71A4C /* TestView.m */,
+				AE9474DD151E4BDD00B15B26 /* MessageObject.h */,
+				AE9474DE151E4BDD00B15B26 /* MessageObject.m */,
 				AE449D01151A82CE00A71A4C /* Supporting Files */,
 			);
 			path = "CA Test iOS new";
@@ -189,6 +194,7 @@
 				AE449D0B151A82CE00A71A4C /* AppDelegate.m in Sources */,
 				AE449D0E151A82CF00A71A4C /* ViewController.m in Sources */,
 				AE449D22151A862800A71A4C /* TestView.m in Sources */,
+				AE9474DF151E4BDD00B15B26 /* MessageObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

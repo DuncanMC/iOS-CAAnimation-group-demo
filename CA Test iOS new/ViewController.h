@@ -24,6 +24,7 @@ typedef void (^animationCompletionBlock)(void);
   __weak IBOutlet UIButton *stopAnimationButton;
   __weak IBOutlet UILabel *tapInstructionsLabel;
   __weak IBOutlet UIView *animationStepView;
+  CFTimeInterval animationStartTime;
 }
 
 @property (nonatomic, weak) IBOutlet UIView *myContainerView;
