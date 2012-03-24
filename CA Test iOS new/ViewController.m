@@ -12,6 +12,7 @@
 
 @interface ViewController ()
 
+- (void) resumeLayer: (CALayer *) theLayer;
 
 
 @end
@@ -21,9 +22,11 @@
 
 @synthesize animationInFlight;
 @synthesize myContainerView;
+@synthesize messagesArray;
 
 - (void)viewDidLoad
 {
+//  self.messagesArray = [NSMutableArray arrayWithCapacity: 10];
   [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -39,6 +42,7 @@
 
 - (void)viewDidUnload
 {
+//  self.messagesArray = nil;
   imageOne = nil;
   //containerView = nil;
   animateButton = nil;
@@ -285,21 +289,23 @@
 
 - (void) pauseLayer: (CALayer *) theLayer
 {
-  CFTimeInterval pausedTime = [theLayer convertTime:CACurrentMediaTime() fromLayer: nil];
+  CFTimeInterval mediaTime = CACurrentMediaTime();
+  CFTimeInterval pausedTime = [theLayer convertTime: mediaTime fromLayer: nil];
   theLayer.speed = 0.0;
   theLayer.timeOffset = pausedTime;
 }
 
 //-----------------------------------------------------------------------------------------------------------
 
-- (void) resumeLayer: (CALayer *) theLayer
+- (void) resumeLayer: (CALayer *) theLayer;
 {
   CFTimeInterval pausedTime = [theLayer timeOffset];
   theLayer.speed = 1.0;
   theLayer.timeOffset = 0.0;
   theLayer.beginTime = 0.0;
+  CFTimeInterval mediaTime = CACurrentMediaTime();
   CFTimeInterval timeSincePause = [theLayer convertTime:CACurrentMediaTime() fromLayer: nil] - pausedTime;
-  theLayer.beginTime = timeSincePause;
+ theLayer.beginTime = timeSincePause;
 }
 
 //-----------------------------------------------------------------------------------------------------------
@@ -343,6 +349,10 @@
 - (IBAction)stopAnimation:(id)sender 
 {
   [imageOne.layer removeAllAnimations];
+  
+  //Also kill all the pending label changes that we set up using performSelector:withObject:afterDelay
+  [NSObject cancelPreviousPerformRequestsWithTarget: animationStepLabel];
+
 }
 
 //-----------------------------------------------------------------------------------------------------------
