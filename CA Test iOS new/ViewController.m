@@ -25,6 +25,11 @@
 @synthesize myContainerView;
 @synthesize messagesArray;
 
+//-----------------------------------------------------------------------------------------------------------
+#pragma mark - view lifecycle methods
+//-----------------------------------------------------------------------------------------------------------
+
+
 - (void)viewDidLoad
 {
   self.messagesArray = [NSMutableArray arrayWithCapacity: 10];
@@ -41,24 +46,6 @@
 }
 
 //-----------------------------------------------------------------------------------------------------------
-/*
- This method sets up delayed calls to setText to display the animation steps at the appropriate times.
- The method is also used if we resume the animation after pausing it, so we need an offset 
- into the total animation time. Offset 0 is the beginning of the whole animation sequence.
- */
-
-- (void) queueMessagesAtTime: (CFTimeInterval) time;
-{
-  MessageObject *message;
-  
-  for (message in messagesArray)
-  {
-    if (message.startTime >= time)
-    {
-      [animationStepLabel performSelector: @selector(setText:) withObject: message.message afterDelay: message.startTime - time];
-    }
-  }
-}
 
 - (void)viewDidUnload
 {
@@ -75,6 +62,31 @@
 }
 
 
+
+//-----------------------------------------------------------------------------------------------------------
+#pragma mark - instance methods
+//-----------------------------------------------------------------------------------------------------------
+
+/*
+ This method sets up delayed calls to setText to display the animation steps at the appropriate times.
+ The method is also used if we resume the animation after pausing it, so we need an offset 
+ into the total animation time. Offset 0 is the beginning of the whole animation sequence.
+ */
+
+- (void) queueMessagesAtTime: (CFTimeInterval) time;
+{
+  MessageObject *message = nil;
+  
+  for (message in messagesArray)
+  {
+    if (message.startTime >= time)
+    {
+      [animationStepLabel performSelector: @selector(setText:) withObject: message.message afterDelay: message.startTime - time];
+    }
+  }
+}
+
+//-----------------------------------------------------------------------------------------------------------
 
 //This method shows how to use a CAAnimationGroup to create a whole series of linked animations that
 //run one right after the other. The secret is to set a duration for the entire group, and use the beginTime
@@ -285,10 +297,9 @@
     shapeLayer.path = nil;
     animationStepView.hidden = TRUE;
     tapInstructionsLabel.hidden = TRUE;
-    //If the animation was paused, un-pause it so it runs correctly next time.
+    //If the animation was paused, cancel the pause so it runs correctly next time.
     if (myContainerView.layer.speed == 0)
-      [self resumeLayer: myContainerView.layer];
-
+      [self removePauseForLayer: myContainerView.layer];
   };
   
   /*
@@ -325,12 +336,19 @@
 
 //-----------------------------------------------------------------------------------------------------------
 
-- (void) resumeLayer: (CALayer *) theLayer;
+- (void) removePauseForLayer: (CALayer *) theLayer;
 {
-  CFTimeInterval pausedTime = [theLayer timeOffset];
   theLayer.speed = 1.0;
   theLayer.timeOffset = 0.0;
   theLayer.beginTime = 0.0;
+}
+
+//-----------------------------------------------------------------------------------------------------------
+
+- (void) resumeLayer: (CALayer *) theLayer;
+{
+  CFTimeInterval pausedTime = [theLayer timeOffset];
+  [self removePauseForLayer: theLayer];
   CFTimeInterval mediaTime = CACurrentMediaTime();
   CFTimeInterval timeSincePause = [theLayer convertTime: mediaTime fromLayer: nil] - pausedTime;
   theLayer.beginTime = timeSincePause;
@@ -339,6 +357,7 @@
 }
 
 //-----------------------------------------------------------------------------------------------------------
+
 /*
  This method gets called from a tap gesture recognizer installed on the view myContainerView.
  We get the coordinates of the tap from the gesture recognizer and use it to hit-test 
@@ -373,6 +392,8 @@
   }
 }
 
+//-----------------------------------------------------------------------------------------------------------
+
 - (IBAction)stopAnimation:(id)sender 
 {
   [imageOne.layer removeAllAnimations];
@@ -384,16 +405,17 @@
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark - CAAnimation delegate methods
 //-----------------------------------------------------------------------------------------------------------
-
-//This method looks for a value added to the animation that just completed 
-//with the key kAnimationCompletionBlock.
-//If it exists, it assumes it is a code block of type animationCompletionBlock, and executes the code block.
-//This allows you to add a custom block of completion code to any animation or animation group, rather than
-//Having a big complicated switch statement in your animationDidStop:finished: method with global animation
-//Completion code.
-// (Note that the system won't call the animationDidStop:finished method for individual animations in an
-//Animation group - it will only call the completion method for the entire group. Thus, if you want to run
-//code after part of an animation group completes, you have to set up a manual timer.
+/*
+ This method looks for a value added to the animation that just completed 
+ with the key kAnimationCompletionBlock.
+ If it exists, it assumes it is a code block of type animationCompletionBlock, and executes the code block.
+ This allows you to add a custom block of completion code to any animation or animation group, rather than
+ Having a big complicated switch statement in your animationDidStop:finished: method with global animation
+ Completion code.
+ (Note that the system won't call the animationDidStop:finished method for individual animations in an
+ Animation group - it will only call the completion method for the entire group. Thus, if you want to run
+ code after part of an animation group completes, you have to set up a manual timer.
+*/
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
 {
