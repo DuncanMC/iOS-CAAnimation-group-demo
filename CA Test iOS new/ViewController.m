@@ -53,6 +53,8 @@
   imageOne = nil;
   //containerView = nil;
   animateButton = nil;
+  viewAnimationButton = nil;
+
   animationStepLabel = nil;
   stopAnimationButton = nil;
   tapInstructionsLabel = nil;
@@ -104,6 +106,8 @@
   
   self.animationInFlight = TRUE;
   animateButton.enabled = FALSE;
+  viewAnimationButton.enabled = FALSE;
+
 
   CGPoint oldOrigin;
   CGFloat duration = 0.4;
@@ -201,7 +205,10 @@
   shapeLayer.lineWidth = 1.0;
   shapeLayer.strokeColor = [[UIColor grayColor] CGColor];
   shapeLayer.fillColor = [[UIColor clearColor] CGColor];
-  shapeLayer.lineDashPattern = [NSArray arrayWithObjects: [NSNumber numberWithInt: 5], [NSNumber numberWithInt: 9], nil];
+  shapeLayer.lineDashPattern = [NSArray arrayWithObjects: 
+                                [NSNumber numberWithInt: 5], 
+                                [NSNumber numberWithInt: 9], 
+                                nil];
   
   //Release our figure 8 path now that we are done with it.
   CFRelease(figure8Path);
@@ -209,8 +216,8 @@
   
   //-----------------------------------------------------------------------
   //Create a rotation animation.
-  //This shows how to use a repeating animation of less than 180 degrees, set to "cumulative" to do
-  //full circle rotations.
+  //This shows how to use a repeating animation of less than 180 degrees, set to "cumulative", 
+  //to do full circle rotations.
   //-----------------------------------------------------------------------
   [messagesArray addObject: [MessageObject message: @"Rotate" startTime: start/animationSpeed]];
 
@@ -294,6 +301,8 @@
     [imageOne.layer removeAllAnimations];
     self.animationInFlight = FALSE;
     animateButton.enabled = TRUE;
+    viewAnimationButton.enabled = TRUE;
+
     shapeLayer.path = nil;
     animationStepView.hidden = TRUE;
     tapInstructionsLabel.hidden = TRUE;
@@ -325,6 +334,66 @@
 }
 
 //-----------------------------------------------------------------------------------------------------------
+/*
+ This method shows how to use UIView animation blocks, and use the same tap view gesture recognizer 
+ to freeze all animations on the parent layer
+ */
+
+- (IBAction)doViewAnimation:(id)sender;
+{
+  
+  stopAnimationButton.enabled = TRUE; //Enable the stop button
+  
+  //Disable the 2 animation buttons while the animation is running.
+  animateButton.enabled = FALSE;
+  viewAnimationButton.enabled = FALSE;
+  
+  //Set a flag so we know that we're doing a view-based animation instead of the animation group animation
+  doingViewAnimation = TRUE;
+  
+  //Save the center point of the image view so we can restore it in the completion block.
+  CGPoint imageOneCenter = imageOne.center;
+  
+  
+  NSLog(@"In %s", __PRETTY_FUNCTION__);
+  self.animationInFlight = TRUE;
+  [UIView animateWithDuration: 3.0
+                        delay: 0.0 
+                      options: UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveLinear
+   
+                   animations: ^{
+                     
+                     //Animate moving the image view diagonally across the screen.
+                     imageOne.center = CGPointMake(668, 100);
+                     
+                     //Make it grow by 50% as it moves
+                     CATransform3D layerTransform = CATransform3DMakeScale(1.5, 1.5, 1.0);
+                     
+                     //Also make it rotate 180 degrees. Note that you can't roate more than 180
+                     //degrees this way, because the system can't tell the difference between a 
+                     //clockwize 270 degree rotation and a counterclockwize 90 degree rotation.
+                     //The layer-based animation in the "doAnimation" shows how to rotate more than
+                     //180 degrees by using a repeating animation of less than 180 degrees.
+                     layerTransform = CATransform3DRotate(layerTransform, M_PI, 0, 0, 1);
+                     
+                     imageOne.layer.transform = layerTransform;
+                   } 
+   
+                   completion: ^(BOOL finished) {
+                     NSLog(@"Animation completed");
+                     animateButton.enabled = TRUE;
+                     viewAnimationButton.enabled = TRUE;
+                     imageOne.center = imageOneCenter;
+                     imageOne.layer.transform = CATransform3DIdentity;
+                     stopAnimationButton.enabled = FALSE;
+                     if (myContainerView.layer.speed == 0)
+                       [self removePauseForLayer: myContainerView.layer];
+                     doingViewAnimation = FALSE;
+                   }
+   ];
+}
+
+//-----------------------------------------------------------------------------------------------------------
 
 - (void) pauseLayer: (CALayer *) theLayer
 {
@@ -352,8 +421,11 @@
   CFTimeInterval mediaTime = CACurrentMediaTime();
   CFTimeInterval timeSincePause = [theLayer convertTime: mediaTime fromLayer: nil] - pausedTime;
   theLayer.beginTime = timeSincePause;
+  if (!doingViewAnimation)
+  {
   [self queueMessagesAtTime: mediaTime - animationStartTime - timeSincePause];
   animationStepView.hidden = FALSE;
+  }
 }
 
 //-----------------------------------------------------------------------------------------------------------

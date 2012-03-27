@@ -20,11 +20,14 @@ typedef void (^animationCompletionBlock)(void);
   __weak IBOutlet UIView *myContainerView;
   __weak IBOutlet UIImageView *imageOne;
   __weak IBOutlet UIButton *animateButton;
+  __weak IBOutlet UIButton *viewAnimationButton;
+
   __weak IBOutlet UILabel *animationStepLabel;
   __weak IBOutlet UIButton *stopAnimationButton;
   __weak IBOutlet UILabel *tapInstructionsLabel;
   __weak IBOutlet UIView *animationStepView;
   CFTimeInterval animationStartTime;
+  BOOL doingViewAnimation;
 }
 
 @property (nonatomic, weak) IBOutlet UIView *myContainerView;
@@ -32,6 +35,8 @@ typedef void (^animationCompletionBlock)(void);
 @property (nonatomic, strong) NSMutableArray *messagesArray;
 
 - (IBAction)doAnimation:(id)sender;
+- (IBAction)doViewAnimation:(id)sender;
+
 - (IBAction)testViewTapped:(id)sender;
 - (IBAction)stopAnimation:(id)sender;
 
