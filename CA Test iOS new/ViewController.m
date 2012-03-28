@@ -14,6 +14,7 @@
 @interface ViewController ()
 
 - (void) resumeLayer: (CALayer *) theLayer;
+- (void) removePauseForLayer: (CALayer *) theLayer;
 
 
 @end
@@ -380,6 +381,7 @@
                    } 
    
                    completion: ^(BOOL finished) {
+                     self.animationInFlight = FALSE;
                      NSLog(@"Animation completed");
                      animateButton.enabled = TRUE;
                      viewAnimationButton.enabled = TRUE;
