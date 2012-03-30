@@ -62,7 +62,7 @@
 								<string key="NSFrame">{{20, 20}, {728, 21}}</string>
 								<reference key="NSSuperview" ref="647673301"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="98569055"/>
+								<reference key="NSNextKeyView" ref="231501369"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -86,6 +86,21 @@
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">17</double>
 									<int key="NSfFlags">16</int>
+								</object>
+							</object>
+							<object class="IBUIImageView" id="231501369">
+								<reference key="NSNextResponder" ref="647673301"/>
+								<int key="NSvFlags">-2147483356</int>
+								<string key="NSFrame">{{134, 310}, {500, 384}}</string>
+								<reference key="NSSuperview" ref="647673301"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="98569055"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">Wareto logo large.png</string>
 								</object>
 							</object>
 							<object class="IBUIView" id="63026949">
@@ -127,7 +142,7 @@
 										<string key="NSFrame">{{170, 20}, {114, 22}}</string>
 										<reference key="NSSuperview" ref="63026949"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="225697092"/>
+										<reference key="NSNextKeyView" ref="644465483"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<int key="IBUIContentMode">7</int>
@@ -204,6 +219,28 @@
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
 						</object>
+					</object>
+					<object class="IBUIButton" id="644465483">
+						<reference key="NSNextResponder" ref="766721923"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{470, 892}, {140, 37}}</string>
+						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="225697092"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">Mask Animation</string>
+						<reference key="IBUIHighlightedTitleColor" ref="683449658"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="633182581"/>
+						<reference key="IBUIFontDescription" ref="197842277"/>
+						<reference key="IBUIFont" ref="114033256"/>
 					</object>
 					<object class="IBUIButton" id="225697092">
 						<reference key="NSNextResponder" ref="766721923"/>
@@ -343,6 +380,22 @@
 					<int key="connectionID">27</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">waretoLogoLarge</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="231501369"/>
+					</object>
+					<int key="connectionID">29</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">maskAnimationButton</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="644465483"/>
+					</object>
+					<int key="connectionID">32</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
 						<string key="label">gestureRecognizers</string>
 						<reference key="source" ref="647673301"/>
@@ -387,6 +440,15 @@
 					</object>
 					<int key="connectionID">26</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">doMaskAnimation:</string>
+						<reference key="source" ref="644465483"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">33</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -415,6 +477,7 @@
 							<reference ref="309313646"/>
 							<reference ref="82723063"/>
 							<reference ref="225697092"/>
+							<reference ref="644465483"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -425,6 +488,7 @@
 							<reference ref="98569055"/>
 							<reference ref="883309836"/>
 							<reference ref="63026949"/>
+							<reference ref="231501369"/>
 						</array>
 						<reference key="parent" ref="766721923"/>
 					</object>
@@ -478,6 +542,17 @@
 						<reference key="object" ref="225697092"/>
 						<reference key="parent" ref="766721923"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">28</int>
+						<reference key="object" ref="231501369"/>
+						<reference key="parent" ref="647673301"/>
+						<string key="objectName">Wareto logo large</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">30</int>
+						<reference key="object" ref="644465483"/>
+						<reference key="parent" ref="766721923"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -493,6 +568,8 @@
 				<string key="21.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.CustomClassName">TestView</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -502,7 +579,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">27</int>
+			<int key="maxID">33</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -519,6 +596,7 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="doAnimation:">id</string>
+						<string key="doMaskAnimation:">id</string>
 						<string key="doViewAnimation:">id</string>
 						<string key="stopAnimation:">id</string>
 						<string key="testViewTapped:">id</string>
@@ -526,6 +604,10 @@
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="doAnimation:">
 							<string key="name">doAnimation:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="doMaskAnimation:">
+							<string key="name">doMaskAnimation:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="doViewAnimation:">
@@ -546,10 +628,12 @@
 						<string key="animationStepLabel">UILabel</string>
 						<string key="animationStepView">UIView</string>
 						<string key="imageOne">UIImageView</string>
+						<string key="maskAnimationButton">UIButton</string>
 						<string key="myContainerView">UIView</string>
 						<string key="stopAnimationButton">UIButton</string>
 						<string key="tapInstructionsLabel">UILabel</string>
 						<string key="viewAnimationButton">UIButton</string>
+						<string key="waretoLogoLarge">UIImageView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="animateButton">
@@ -568,6 +652,10 @@
 							<string key="name">imageOne</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="maskAnimationButton">
+							<string key="name">maskAnimationButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="myContainerView">
 							<string key="name">myContainerView</string>
 							<string key="candidateClassName">UIView</string>
@@ -583,6 +671,10 @@
 						<object class="IBToOneOutletInfo" key="viewAnimationButton">
 							<string key="name">viewAnimationButton</string>
 							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="waretoLogoLarge">
+							<string key="name">waretoLogoLarge</string>
+							<string key="candidateClassName">UIImageView</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -600,10 +692,10 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">WareTo_logo_100x77.png</string>
-			<string key="NS.object.0">{100, 77}</string>
-		</object>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="WareTo_logo_100x77.png">{100, 77}</string>
+			<string key="Wareto logo large.png">{500, 384}</string>
+		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>
 </archive>

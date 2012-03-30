@@ -14,6 +14,7 @@ typedef void (^animationCompletionBlock)(void);
 @interface ViewController : UIViewController
 {
   BOOL animationInFlight;
+  BOOL doingMaskAnimation;
 //  NSMutableArray *messagesArray;
   
   //outlets
@@ -21,11 +22,13 @@ typedef void (^animationCompletionBlock)(void);
   __weak IBOutlet UIImageView *imageOne;
   __weak IBOutlet UIButton *animateButton;
   __weak IBOutlet UIButton *viewAnimationButton;
+  __weak IBOutlet UIButton *maskAnimationButton;
 
   __weak IBOutlet UILabel *animationStepLabel;
   __weak IBOutlet UIButton *stopAnimationButton;
   __weak IBOutlet UILabel *tapInstructionsLabel;
   __weak IBOutlet UIView *animationStepView;
+  __weak IBOutlet UIImageView *waretoLogoLarge;
   CFTimeInterval animationStartTime;
   BOOL doingViewAnimation;
 }
@@ -36,6 +39,7 @@ typedef void (^animationCompletionBlock)(void);
 
 - (IBAction)doAnimation:(id)sender;
 - (IBAction)doViewAnimation:(id)sender;
+- (IBAction)doMaskAnimation:(id)sender;
 
 - (IBAction)testViewTapped:(id)sender;
 - (IBAction)stopAnimation:(id)sender;

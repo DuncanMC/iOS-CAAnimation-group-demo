@@ -54,11 +54,14 @@
   //containerView = nil;
   animateButton = nil;
   viewAnimationButton = nil;
+  maskAnimationButton = nil;
 
   animationStepLabel = nil;
   stopAnimationButton = nil;
   tapInstructionsLabel = nil;
   animationStepView = nil;
+  waretoLogoLarge = nil;
+  maskAnimationButton = nil;
   [super viewDidUnload];
   // Release any retained subviews of the main view.
 }
@@ -105,8 +108,10 @@
   animationCompletionBlock theBlock;
   
   self.animationInFlight = TRUE;
+  
   animateButton.enabled = FALSE;
   viewAnimationButton.enabled = FALSE;
+  maskAnimationButton.enabled= FALSE;
 
 
   CGPoint oldOrigin;
@@ -213,7 +218,7 @@
   //Release our figure 8 path now that we are done with it.
   CFRelease(figure8Path);
   
-  
+
   //-----------------------------------------------------------------------
   //Create a rotation animation.
   //This shows how to use a repeating animation of less than 180 degrees, set to "cumulative", 
@@ -302,7 +307,8 @@
     self.animationInFlight = FALSE;
     animateButton.enabled = TRUE;
     viewAnimationButton.enabled = TRUE;
-
+    maskAnimationButton.enabled = TRUE;
+    
     shapeLayer.path = nil;
     animationStepView.hidden = TRUE;
     tapInstructionsLabel.hidden = TRUE;
@@ -342,11 +348,15 @@
 - (IBAction)doViewAnimation:(id)sender;
 {
   
+  
+  tapInstructionsLabel.hidden = FALSE;
+
   stopAnimationButton.enabled = TRUE; //Enable the stop button
   
   //Disable the 2 animation buttons while the animation is running.
   animateButton.enabled = FALSE;
   viewAnimationButton.enabled = FALSE;
+  maskAnimationButton.enabled = FALSE;
   
   //Set a flag so we know that we're doing a view-based animation instead of the animation group animation
   doingViewAnimation = TRUE;
@@ -381,7 +391,9 @@
    
                    completion: ^(BOOL finished) {
                      NSLog(@"Animation completed");
+                     tapInstructionsLabel.hidden = TRUE;
                      animateButton.enabled = TRUE;
+                     maskAnimationButton.enabled = TRUE;
                      viewAnimationButton.enabled = TRUE;
                      imageOne.center = imageOneCenter;
                      imageOne.layer.transform = CATransform3DIdentity;
@@ -389,8 +401,127 @@
                      if (myContainerView.layer.speed == 0)
                        [self removePauseForLayer: myContainerView.layer];
                      doingViewAnimation = FALSE;
+                     self.animationInFlight = FALSE;
                    }
    ];
+}
+
+//-----------------------------------------------------------------------------------------------------------
+/*
+ This method illustrates how to use a mask layer to hide/how part of the contents of a view, and how to
+ create an animation that reveals/hides the contents of a layer.
+ It creates a circular sweep animatinon that reveals an image in an arc, like the sweep of a radar display
+*/
+
+- (IBAction)doMaskAnimation:(id)sender;
+{
+  
+  tapInstructionsLabel.hidden = FALSE;
+  
+  animationCompletionBlock theBlock;
+  waretoLogoLarge.hidden = FALSE;//Show the image view
+
+  //Create a shape layer that we will use as a mask for the waretoLogoLarge image view
+  CAShapeLayer *maskLayer = [CAShapeLayer layer];
+  
+
+  
+  CGFloat maskHeight = waretoLogoLarge.layer.bounds.size.height;
+  CGFloat maskWidth = waretoLogoLarge.layer.bounds.size.width;
+  
+  
+  CGPoint centerPoint;
+  centerPoint = CGPointMake( maskWidth/2, maskHeight/2);
+  
+  //Make the radius of our arc large enough to reach into the corners of the image view.
+  CGFloat radius = sqrtf(maskWidth * maskWidth + maskHeight * maskHeight)/2;
+  
+  //Don't fill the path, but stroke it in black.
+  maskLayer.fillColor = [[UIColor clearColor] CGColor];
+  maskLayer.strokeColor = [[UIColor blackColor] CGColor];
+
+  maskLayer.lineWidth = radius; //Make the line thick enough to completely fill the circle we're drawing
+  
+  CGMutablePathRef arcPath = CGPathCreateMutable();
+  
+  //Move to the starting point of the arc so there is no initial line connecting to the arc
+  CGPathMoveToPoint(arcPath, nil, centerPoint.x+radius/2, centerPoint.y);
+  
+  //Create an arc at 1/2 our circle radius, with a line thickess of the full circle radius
+  CGPathAddArc(arcPath,
+               nil,
+               centerPoint.x,
+               centerPoint.y,
+               radius/2,
+               0,
+               2 * M_PI,
+               NO);
+  
+  maskLayer.path = arcPath;
+  
+  //Start with an empty mask path (draw 0% of the arc)
+  maskLayer.strokeEnd = 0;
+  
+
+  CFRelease(arcPath);
+  
+  //Install the mask layer into out image view's layer.
+  waretoLogoLarge.layer.mask = maskLayer;
+  
+  //Set our mask layer's frame to the parent layer's bounds.
+  waretoLogoLarge.layer.mask.frame = waretoLogoLarge.layer.bounds;
+  
+  //Create an animation that increases the stroke length to 1, then reverses it back to zero.
+  CABasicAnimation *swipe = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+  swipe.duration = 2;
+  swipe.delegate = self;
+  [swipe setValue: theBlock forKey: kAnimationCompletionBlock];
+  
+  swipe.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+  swipe.fillMode = kCAFillModeForwards;
+  swipe.removedOnCompletion = NO;
+  swipe.autoreverses = YES;
+  
+  swipe.toValue = [NSNumber numberWithFloat: 1.0];
+  
+  self.animationInFlight = TRUE;
+  animateButton.enabled = FALSE;
+  viewAnimationButton.enabled = FALSE;
+  maskAnimationButton.enabled = FALSE;
+  stopAnimationButton.enabled = TRUE;
+
+  //Set up a completion block that will be called once the animation is completed.
+  theBlock = ^void(void)
+  {    
+    stopAnimationButton.enabled = FALSE;
+    
+    waretoLogoLarge.layer.mask = nil;
+    self.animationInFlight = FALSE;
+    animateButton.enabled = TRUE;
+    viewAnimationButton.enabled = TRUE;
+    maskAnimationButton.enabled = TRUE;
+    tapInstructionsLabel.hidden = TRUE;
+
+    
+    waretoLogoLarge.hidden = TRUE;
+    doingMaskAnimation = FALSE;
+    
+    if (myContainerView.layer.speed == 0)
+      [self removePauseForLayer: myContainerView.layer];
+  };
+  
+  /*
+   Install the completion block in the animation using the key kAnimationCompletionBlock
+   The completion block will be run by in the animation's animationDidStop:finished delegate method.
+   This approach doesn't work for animations that are part of a group, unfortunately, since an animation's
+   delegate methods don't get called when the animation is part of an animation group
+   */
+  
+  [swipe setValue: theBlock forKey: kAnimationCompletionBlock];
+
+  doingMaskAnimation = TRUE;
+  [maskLayer addAnimation: swipe forKey: @"strokeEnd"];
+
 }
 
 //-----------------------------------------------------------------------------------------------------------
@@ -421,10 +552,10 @@
   CFTimeInterval mediaTime = CACurrentMediaTime();
   CFTimeInterval timeSincePause = [theLayer convertTime: mediaTime fromLayer: nil] - pausedTime;
   theLayer.beginTime = timeSincePause;
-  if (!doingViewAnimation)
+  if (!(doingViewAnimation || doingMaskAnimation))
   {
-  [self queueMessagesAtTime: mediaTime - animationStartTime - timeSincePause];
-  animationStepView.hidden = FALSE;
+    [self queueMessagesAtTime: mediaTime - animationStartTime - timeSincePause];
+    animationStepView.hidden = FALSE;
   }
 }
 
@@ -448,8 +579,9 @@
   {
     tappedLayer = [myContainerView.layer.presentationLayer hitTest: touchPoint];
     layerDelegate = [tappedLayer delegate];
-    
-    if (layerDelegate == imageOne)
+        
+    if (((layerDelegate == imageOne && !doingMaskAnimation)) ||
+      (layerDelegate == waretoLogoLarge && doingMaskAnimation))
     {
       if (myContainerView.layer.speed == 0)
         [self resumeLayer: myContainerView.layer];
@@ -469,6 +601,7 @@
 - (IBAction)stopAnimation:(id)sender 
 {
   [imageOne.layer removeAllAnimations];
+  [waretoLogoLarge.layer.mask removeAllAnimations];
   //Also kill all the pending label changes that we set up using performSelector:withObject:afterDelay
   [NSObject cancelPreviousPerformRequestsWithTarget: animationStepLabel];
 
@@ -486,7 +619,7 @@
  Completion code.
  (Note that the system won't call the animationDidStop:finished method for individual animations in an
  Animation group - it will only call the completion method for the entire group. Thus, if you want to run
- code after part of an animation group completes, you have to set up a manual timer.
+ code after part of an animation group completes, you have to set up a manual timer.)
 */
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
