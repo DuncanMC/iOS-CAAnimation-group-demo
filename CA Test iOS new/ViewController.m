@@ -101,7 +101,7 @@
 - (IBAction)doAnimation:(id)sender 
 {
   [messagesArray removeAllObjects];
-  CGFloat animationSpeed = .25;  //run the animation at 1/4 speed so you can see it and tap on the image
+  CGFloat animationSpeed = .5;  //run the animation at 1/4 speed so you can see it and tap on the image
   animationStepView.hidden = FALSE;
   tapInstructionsLabel.hidden = FALSE;
   stopAnimationButton.enabled = TRUE;
@@ -162,7 +162,7 @@
   figure8=  [CAKeyframeAnimation animationWithKeyPath: @"position"];
   figure8.removedOnCompletion = FALSE;
   figure8.fillMode = kCAFillModeForwards;
-  figure8.duration = 2;
+  figure8.duration = 3;
   figure8.beginTime = start;
   figure8.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
 
@@ -194,7 +194,7 @@
   CGPathAddCurveToPoint(figure8Path, NULL, left, middleY, left, bottom, middleX, bottom);
 
   //Make the figure 8 do 2 full cycles.
-  figure8.repeatCount = 2;
+  figure8.repeatCount = 1;
   
   
   start = start + figure8.duration * figure8.repeatCount + pause;
@@ -437,17 +437,19 @@
   
   //Make the radius of our arc large enough to reach into the corners of the image view.
   CGFloat radius = sqrtf(maskWidth * maskWidth + maskHeight * maskHeight)/2;
+//  CGFloat radius = MIN(maskWidth, maskHeight)/2;
   
   //Don't fill the path, but stroke it in black.
   maskLayer.fillColor = [[UIColor clearColor] CGColor];
   maskLayer.strokeColor = [[UIColor blackColor] CGColor];
 
   maskLayer.lineWidth = radius; //Make the line thick enough to completely fill the circle we're drawing
+//  maskLayer.lineWidth = 10; //Make the line thick enough to completely fill the circle we're drawing
   
   CGMutablePathRef arcPath = CGPathCreateMutable();
   
   //Move to the starting point of the arc so there is no initial line connecting to the arc
-  CGPathMoveToPoint(arcPath, nil, centerPoint.x+radius/2, centerPoint.y);
+  CGPathMoveToPoint(arcPath, nil, centerPoint.x, centerPoint.y-radius/2);
   
   //Create an arc at 1/2 our circle radius, with a line thickess of the full circle radius
   CGPathAddArc(arcPath,
@@ -455,14 +457,14 @@
                centerPoint.x,
                centerPoint.y,
                radius/2,
-               0,
-               2 * M_PI,
+               3*M_PI/2,
+               -M_PI/2,
                NO);
   
   maskLayer.path = arcPath;
   
   //Start with an empty mask path (draw 0% of the arc)
-  maskLayer.strokeEnd = 0;
+  maskLayer.strokeEnd = 0.0;
   
 
   CFRelease(arcPath);
