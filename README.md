@@ -22,6 +22,11 @@ The clock wipe animation is performed in the method `- (IBAction)doMaskAnimation
 
 The `doMaskAnimation` method sets `strokeEnd = 0` to start, which means the path is empty, and the entire image view is hidden (masked.) It then creates a CABasicAnimatimation that animates the strokeEnd property from 0.0 to 1.0. That causes the layer's path to animate an ever-increasing arc. Since the line thickness for hte shape layer is very thick, the arc fills the entire bounds of the image view, revealing an ever-increasing portion of the image view.
 
+The animation looks like this:
+
+![clock wipe](Clock wipe.gif)
+
+
 ##CAAnimationGroup animation. (CAAnimation button)
 
 The "CAAnimation" button invokes the method `- (IBAction)doAnimation:(id)sender `. It performs a whole sequence of animations. It does this buy creating a CAAnimationGroup, and then creating a sequence of individual CAAnimation objects of different flavors. It sets the beginTime property of each animation so that each animation step in the animation group begins when the next animation finishes. 
