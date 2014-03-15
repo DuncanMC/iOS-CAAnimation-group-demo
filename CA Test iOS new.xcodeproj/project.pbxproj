@@ -20,6 +20,8 @@
 		AE449D22151A862800A71A4C /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE449D21151A862800A71A4C /* TestView.m */; };
 		AE70848E151B9EC800D707F8 /* wareto.png in Resources */ = {isa = PBXBuildFile; fileRef = AE70848B151B9EC800D707F8 /* wareto.png */; };
 		AE70848F151B9EC800D707F8 /* wareto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE70848C151B9EC800D707F8 /* wareto@2x.png */; };
+		AE772D2718D33E660050A61E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AE772D2618D33E660050A61E /* README.md */; };
+		AE772D2F18D352A10050A61E /* Clock wipe.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE772D2E18D352A10050A61E /* Clock wipe.gif */; };
 		AE9474D4151E460900B15B26 /* wareto-72.png in Resources */ = {isa = PBXBuildFile; fileRef = AE9474D3151E460900B15B26 /* wareto-72.png */; };
 		AE9474DF151E4BDD00B15B26 /* MessageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9474DE151E4BDD00B15B26 /* MessageObject.m */; };
 		AEDFEDC61526034A000E5D6A /* Wareto logo large.png in Resources */ = {isa = PBXBuildFile; fileRef = AEDFEDC51526034A000E5D6A /* Wareto logo large.png */; };
@@ -45,6 +47,8 @@
 		AE449D21151A862800A71A4C /* TestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
 		AE70848B151B9EC800D707F8 /* wareto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wareto.png; sourceTree = "<group>"; };
 		AE70848C151B9EC800D707F8 /* wareto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wareto@2x.png"; sourceTree = "<group>"; };
+		AE772D2618D33E660050A61E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
+		AE772D2E18D352A10050A61E /* Clock wipe.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Clock wipe.gif"; sourceTree = SOURCE_ROOT; };
 		AE9474D3151E460900B15B26 /* wareto-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wareto-72.png"; sourceTree = "<group>"; };
 		AE9474DD151E4BDD00B15B26 /* MessageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageObject.h; sourceTree = "<group>"; };
 		AE9474DE151E4BDD00B15B26 /* MessageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageObject.m; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 		AE449D01151A82CE00A71A4C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE772D2518D33E590050A61E /* Documentation */,
 				AEDFEDC51526034A000E5D6A /* Wareto logo large.png */,
 				AE9474D3151E460900B15B26 /* wareto-72.png */,
 				AE70848B151B9EC800D707F8 /* wareto.png */,
@@ -125,6 +130,15 @@
 				AE449D08151A82CE00A71A4C /* CA Test iOS new-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE772D2518D33E590050A61E /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				AE772D2E18D352A10050A61E /* Clock wipe.gif */,
+				AE772D2618D33E660050A61E /* README.md */,
+			);
+			name = Documentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,7 +197,9 @@
 				AE70848E151B9EC800D707F8 /* wareto.png in Resources */,
 				AE70848F151B9EC800D707F8 /* wareto@2x.png in Resources */,
 				AE9474D4151E460900B15B26 /* wareto-72.png in Resources */,
+				AE772D2718D33E660050A61E /* README.md in Resources */,
 				AEDFEDC61526034A000E5D6A /* Wareto logo large.png in Resources */,
+				AE772D2F18D352A10050A61E /* Clock wipe.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
