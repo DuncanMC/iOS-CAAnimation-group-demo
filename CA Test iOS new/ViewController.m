@@ -445,29 +445,12 @@
 
   maskLayer.lineWidth = radius; //Make the line thick enough to completely fill the circle we're drawing
 //  maskLayer.lineWidth = 10; //Make the line thick enough to completely fill the circle we're drawing
+
   
-  CGMutablePathRef arcPath = CGPathCreateMutable();
-  
-  //Move to the starting point of the arc so there is no initial line connecting to the arc
-  CGPathMoveToPoint(arcPath, nil, centerPoint.x, centerPoint.y-radius/2);
-  
-  //Create an arc at 1/2 our circle radius, with a line thickess of the full circle radius
-  CGPathAddArc(arcPath,
-               nil,
-               centerPoint.x,
-               centerPoint.y,
-               radius/2,
-               3*M_PI/2,
-               -M_PI/2,
-               NO);
-  
-  maskLayer.path = arcPath;
+  maskLayer.path = [UIBezierPath bezierPathWithArcCenter:centerPoint radius:radius/2 startAngle:3*M_PI/2 endAngle:7*M_PI/2 clockwise:YES].CGPath;
   
   //Start with an empty mask path (draw 0% of the arc)
   maskLayer.strokeEnd = 0.0;
-  
-
-  CFRelease(arcPath);
   
   //Install the mask layer into out image view's layer.
   waretoLogoLarge.layer.mask = maskLayer;
