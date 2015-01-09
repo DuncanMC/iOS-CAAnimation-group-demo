@@ -459,7 +459,7 @@
                radius/2,
                3*M_PI/2,
                -M_PI/2,
-               NO);
+               YES);
   
   maskLayer.path = arcPath;
   
