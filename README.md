@@ -10,11 +10,11 @@ It shows 3 different kinds of animations:
 * A complex sequence of animations that are managed using a CAAnimationGroup.
 
 
-##UIVIew animation (View Animation button)
+## UIVIew animation (View Animation button)
 
 The UIView animation is performed by the method `-doViewAnimation: (id) sender` in viewController.m. It uses the method `animateWithDuration:delay:options:animations:completion:` to do it's job. UIView animations modify animatable properties of one or more views. It is possible to animate mutliple animatable properties of multiple view objects with a single UIView animation call. the doViewAnimation method animates the view's center, scale, and rotation all at the same time. 
 
-##Clock Wipe animation (Mask Animation button)
+## Clock Wipe animation (Mask Animation button)
 
 The clock wipe animation is performed in the method `- (IBAction)doMaskAnimation:(id)sender;`. It works by creating a shape layer (`CAShapeLayer`) and setting it as the mask for an image view's layer. We set the shape layer to contain a an arc that describes a full circle, where the radius of the arc is 1/2 of the center-to-corner distance of the view. The line width of the arc is set to the arc radius, so the arc actually fills the entire image bounds rectangle. 
 
@@ -27,14 +27,14 @@ The animation looks like this:
 ![clock wipe](Clock wipe.gif)
 
 
-##CAAnimationGroup animation. (CAAnimation button)
+## CAAnimationGroup animation. (CAAnimation button)
 
 The "CAAnimation" button invokes the method `- (IBAction)doAnimation:(id)sender `. It performs a whole sequence of animations. It does this buy creating a CAAnimationGroup, and then creating a sequence of individual CAAnimation objects of different flavors. It sets the beginTime property of each animation so that each animation step in the animation group begins when the next animation finishes. 
 
 
 
 
-##What you will learn:
+## What you will learn:
 This project demonstrates a wide variety of animation techniques
 
   * Using CABasicAnimation to animate a property and move images around on the screen.
